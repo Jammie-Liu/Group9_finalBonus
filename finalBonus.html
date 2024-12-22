@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工智慧在阿茲海默症診斷中的應用</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: cornflowerblue;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            margin: 20px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: cornflowerblue;
+            font-weight: bold;
+        }
+        section {
+            margin: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: cornflowerblue;
+        }
+        
+         .right-column img {
+            display: flex;
+            justify-content:center;
+            margin: 10px;
+            float: right;
+            width: 10%;
+            height:10%;
+        } 
+        img {
+            width: 20%;
+            height: 20%;
+            display: block;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        img:active {
+            transform: scale(2);
+        }
+        .imgRow {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .imgFormula {
+            width: 10%;
+            height: 10%;
+            left: 20px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        a{
+            color: blue;
+        }
+        a:hover{
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>人工智慧在阿茲海默症診斷與預測中的應用</h1>
+        <p>計算機概論 Group9</p>
+    </header>
+
+    <nav>
+        <a href="#introduction">阿茲海默症診斷現狀</a>
+        <a href="#dataset">數據集來源和處理</a>
+        <a href="#training">模型訓練與測試</a>
+        <a href="#results">結果分析與性能評估</a>
+        <a href="#future">未來挑戰與趨勢</a>
+        <a href="#sources">參考資料</a>
+    </nav>
+
+    <section id="introduction">
+        <h2>阿茲海默症診斷現狀</h2>
+        <p>阿茲海默症是一種神經退化性疾病，其特徵是大腦中異常蛋白質的積累，早期檢測和準確診斷對於治療和護理至關重要</p>
+        <h3>病理特徵:</h3>
+        <ul>
+            <li>神經纖維纏結：由 Tau 蛋白異常堆積導致</li>
+            <li>老年斑塊：由 β-澱粉樣蛋白 (Aβ) 沉積形成</li>
+        </ul>
+        <p>初期異常蛋白侵害海馬迴與大腦皮質，導致記憶和認知功能受損。隨病情惡化，患者腦神經逐漸萎縮</p>
+        <img src="img/healthVSalz.png" alt="健康大腦與阿茲海默症大腦對比">
+        <h3>挑戰：</h3>
+        <ul>
+            <li>依賴主觀臨床評估(如 CDR 量表)</li>
+            <li>缺乏統一的診斷方法</li>
+        </ul>
+        <p>人工智慧工具提供了更客觀和精確的評估潛力</p>
+        <h3>電腦輔助診斷系統：</h3>
+        <ul><b>電腦斷層掃描CT</b>
+            <div class="right-column" >
+            <img src="img/MRI.png" alt="患者腦部MRI影像">
+            <img src="img/CT.png" alt="患者腦部CT影像"></div>
+        <ul>優點：成本較低、檢查速度快</ul>
+        <ul>缺點：軟組織對比較差</ul></ul>
+        <ul><b>核磁共振影像MRI</b>
+            <ul>優點：軟組織對比佳，適合觀察</ul>
+            <ul>缺點：成本較高、拍攝時間長</ul></ul>
+    </section>
+
+    <section id="dataset">
+        <h2>數據集來源和處理</h2>
+        <p>數據來源於雙和醫院醫學神經內科，60 組病人（ 65 至 95 歲）：</p>
+        <ul>
+            <li>60 組 CT 掃描（40 組訓練，20 組測試）</li>
+            <li>25 組 MRI 掃描用於額外驗證</li>
+        </ul>
+        <h3>採樣部位(左右腦共14個參數)</h3>
+        <ul>腦溝：外側溝(Sylvian Fissure)、中央溝(Central Sulcus)、上額葉溝(Superior Frontal Sulcus)、頂葉內溝(Intraparietal Sulcus)</ul>
+        <ul>腦室：腦室中所占容積最大之側腦室(Lateral Ventricle)、與側腦室連通之第三腦室(Third Ventricle)、腦池(Cerebral Cistern)</ul>
+        <h3>影像處理及資料分析：</h3>
+        <ul>影像處理<ul>去除 CT 影像中的胡椒鹽雜訊、分割腦組織與結構，並計算腦組織體積及灰質厚度</ul></ul>
+        <ul>資料分析<ul>透過與 MRI 的重疊率、訊號雜訊比 (SNR) 和平均絕對誤差 (MAE) 來評估處理效果及準確性</ul></ul>
+    </section>
+
+    <section id="training">
+        <h2>模型訓練與測試</h2>
+        <p><b>支援向量機 Support Vector Machine（SVM）為監督式學習方法，通過找到不同類別之間的「最佳決策邊界」（超平面）來進行</b>
+        <br>SVM 的目的是根據患者的影像特徵，將數據分類對照：CDR0、CDR0.5、CDR1、CDR2</p>
+        <p><b>Kernel</b>：讓SVM可以從線性分類轉換到非線性分類上：</p>
+        <ul>
+            <li>二維直線(Linear Kernel)</li>
+            <li>Polynomial 高次方轉換</li>
+            <li>高斯轉換 Radial Basis Function(RBF)</li>
+            <li>sigmoid kernel</li>
+        </ul>
+        <div class="imgRow">
+            <img src="img/lk.png" alt="Linear Kernel">
+            <img src="img/rbf.png" alt="RBF">
+            <img src="img/sk.png" alt="sigmoid kernel">
+        </div>(以臨床CDR為基準，建立混淆矩陣)用於測試模型</p>
+        <p><b>模型訓練</b>: 建立阿茲海默症CDR個等級的判斷標準</p>
+        <ul>
+            <li>輸入特徵 X = [左右腦之外側溝(Sylvian Fissure)、中央溝(Central Sulcus)、上額葉溝(Superior Fronta Sulcus)、頂葉內溝(Intraparietal Sulcus、側腦室(Lateral Ventricle)、第三腦室(Third Ventricle)、腦池(Cerebral Cistern)] </li>
+            <li>40組CT影像(臨床CDR值為0、0.5、1、2+各10組)</li>
+            <li>用 RBF 核函數計算數據點之間的非線性關係</li>
+            <li>SVM 找到不同類別（CDR0、CDR0.5、CDR1、CDR2+）之間的最佳決策邊界</li>
+        </ul>
+        <p><b>模型測試</b></p>
+        <ul>
+            <li>給定一位新患者的數據 Xnew = [左右腦之外側溝(Sylvian Fissure)、中央溝(Central Sulcus)、上額葉(Superior Frontal Sulcus)、頂葉內溝(Intraparietal Sulcus)、側腦室(Lateral Ventricle)、第三腦室(Third Ventricle)、腦池(Cerebral Cistern)]</li>
+            <li>利用20組患者CT影像，以臨床CDR為基準，建立混淆</li>
+            <li>通過 SVM 模型計算 Xnew 與決策邊界的距離，預測該患者屬於CDR0、CDR0.5、CDR1、CDR2+哪一類</li>
+        </ul>
+        <img src="img/result.png" alt="腦部各區域之萎縮程度">
+    </section>
+
+    <section id="results">
+        <h2>結果分析與性能評估</h2>
+        <p><b>混淆矩陣（Confusion Matrix）</b>: 用來評估模型預測結果的工具，可以清楚地顯示模型預測正確和錯誤的次數</p>
+        <ul>
+            <li>TP(True Positive)：實際為有病，預測為有病</li>
+            <li>FP(False Positive)：實際為無病，預測為有病</li>
+            <li>TN(True Negative)：實際為無病，預測為無病</li>
+            <li>FN(False Negative)：實際有病，預測為無病</li>
+        </ul>
+        <img src="img/confusionMatrix.png" alt="混淆矩陣圖示">
+        <p><b>評估指標</b></p>
+        <ul>
+            <li>準確率(Accuracy)
+            <img src="img/accuracy.png" alt="Accuracy" class="imgFormula"></li>
+            <li>敏感度(Sensitivity)
+            <img src="img/sensitivity.png" alt="Sensitivity" class="imgFormula"></li>
+            <li>特異度(Specificity)
+            <img src="img/specificity.png" alt="Specificity" class="imgFormula"></li>
+            <li>可信賴度(Kappa Value)</li>
+        </ul>
+        <p><b>增加準確性之重訓練</b></p>
+        <p>由於 CDR 量表評估具有一定主觀性，因此在重訓練組中，排除了腦實質體積比例與 CDR 等級之間存在顯著不一致或明顯偏差的病例，以確保資料的準確性和模型訓練的一致性。</p>
+        <ul>
+            <li>準確率(Accuracy)：before 80%，after 88%</li>
+            <li>敏感度(Sensitivity)：before 86.6%，after 100%</li>
+            <li>特異度(Specificity)：before 84.6%，after 84.6%</li>
+            <li>可信賴度(Kappa Value)：before 0.547，after 0.699</li>
+        </ul>
+        <p><b>其他可增加準確性之方法</b></p>
+        <ul>
+            <li>grid search 網格搜索</li>
+            <li>5-fold cross-validation 交叉驗證</li>
+        </ul>
+    </section>
+
+    <section id="future">
+        <h2>未來挑戰與趨勢</h2>
+        <p><b>挑戰</b>：</p>
+        <ul>
+            <li>資料不足</li>
+            <li>隱私問題</li>
+            <li>CT影像於灰白值分離之技術處理</li>
+        </ul>
+        <p><b>展望</b>：</p>
+        <ul>
+            <li>推廣至其他腦神經疾病的偵測</li>
+        </ul>
+    </section>
+
+    <section id="sources">
+        <h2>參考資料</h2>
+        <li><a href="https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC3-4%E8%AC%9B-%E6%94%AF%E6%8F%B4%E5%90%91%E9%87%8F%E6%A9%9F-support-vector-machine-%E4%BB%8B%E7%B4%B9-9c6c6925856b">[資料分析&機器學習] 第3.4講：支援向量機(Support Vector Machine)介紹 | by Yeh James JamesLearningNote | Medium</a></li>
+        <li><a href="https://chih-sheng-huang821.medium.com/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E6%94%AF%E6%92%90%E5%90%91%E9%87%8F%E6%A9%9F-support-vector-machine-svm-%E8%A9%B3%E7%B4%B0%E6%8E%A8%E5%B0%8E-c320098a3d2e">機器學習-支撐向量機(support vector machine, SVM)詳細推導 | by Tommy Huang | Medium</a></li>
+        <li><a href="https://www.airitilibrary.com/Article/Detail/U0017-0709201814062300"> 開發以腦組織萎縮診斷阿茲海默症之電腦輔助偵測系統 by 田耀勛</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8289609/">A Comparative Analysis of Machine Learning Algorithms to Predict Alzheimer's Disease</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10680162/">Artificial intelligence technology in Alzheimer's disease research</a></li>
+        <li><a href="https://ithelp.ithome.com.tw/articles/10270447">IT邦忙: 核模型 - 支持向量機 (SVM)</a></li>
+        <li><a href="https://etd.lis.nsysu.edu.tw/ETD-db/ETD-search-c/view_etd?URN=etd-0801120-180722">機器學習應用於阿茲海默症之分類研究</a></li>
+    </section>
+
+    <footer>
+        <p>&copy; 計算機概論 Group9 | 人工智慧在阿茲海默症診斷中的應用</p>
+    </footer>
+</body>
+</html>
+
